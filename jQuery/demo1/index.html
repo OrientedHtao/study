@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>异步请求</title>
+    <script src ="../js/jquery.js"></script>
+</head>
+<body>
+    <script>
+        $(function () {
+            console.log('adfsd')
+            // console.log($.ajax)
+            // $.ajax({
+            //     url: "hello.json",
+            //     // url: "ceshi.json",
+            //     type: "GET",
+            //     dataType: "json",
+            //     success: function (data) {
+            //         console.log(data)
+            //     },
+            // });
+            $.ajax({
+               url: "ceshi.json",//json文件位置
+               type: "GET",//请求方式为get
+               dataType: "json", //返回数据格式为json
+               success: function(data) {//请求成功完成后要执行的方法 
+                   //each循环 使用$.each方法遍历返回的数据date
+                   console.log(data)
+                   // $.each(data.first, function(i, item) {
+                   //      var str = '<div>姓名:' + item.name + '性别：' + item.sex + '</div>';
+                   //      document.write(str);
+                   // })
+               }
+            })
+        })
+            
+            // $.ajax({
+            //     url: 'demo1.json',
+            //     type: 'GET',
+            //     dataType: 'json',
+            //     success: function (res) {
+            //         console.log('fdas')
+            //     },
+            //     fail: function () {
+            //         console.log('hello')
+            //     }
+            // })
+    </script>
+</body>
+</html>
