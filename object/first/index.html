@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选项卡</title>
+    <style>
+        #div1 input {
+            background-color: #fff;
+        }
+        #div1 input.active {
+            background-color: yellow;
+        }
+        #div1 > div{
+            width:200px;
+            height:200px;
+            background-color: #ccc;
+            display: none;
+        }
+    </style>
+    <script>
+        // 函数没有嵌套
+        var aBtn = null;
+        var aDiv = null;
+        window.onload = function () {
+            new TabSwitch('div1')
+        }
+        /*===================*/
+        function TabSwitch(id) {
+            var _this = this;
+            var oDiv = document.getElementById(id)
+            this.aBtn = oDiv.getElementsByTagName('input');
+            this.aDiv = oDiv.getElementsByTagName('div');
+
+            for(var i = 0; i < this.aBtn.length; i++) {
+                this.aBtn[i].index = i;
+                this.aBtn[i].onclick = function () {
+                    _this.fnClick(this)
+                }
+            }
+        }
+        TabSwitch.prototype.fnClick = function (oBtn) {
+            alert(this)
+            for(var i = 0; i < this.aBtn.length; i++) {
+                this.aBtn[i].className = '';
+                this.aDiv[i].style.display = 'none';
+            }
+            oBtn.className = 'active'
+            this.aDiv[oBtn.index].style.display = 'block'
+        }
+    </script>
+</head>
+<body>
+    <div id="div1">
+        <input class="active" type="button" value="aaa">
+        <input type="button" value="bbb">
+        <input type="button" value="ccc">
+        <div style="display: block">aaa</div>
+        <div>bbb</div>
+        <div>ccc</div>
+    </div>
+</body>
+</html>

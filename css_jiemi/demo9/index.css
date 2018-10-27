@@ -1,0 +1,18 @@
+div{
+    width: 500px;
+    height:200px;
+    border: 1px solid #aaa;
+    background-color: #ff00ff;
+}
+#shili1{
+    border-radius: 50%;
+}
+#shili2{
+    border-radius: 50%  / 100% 100% 0 0 ;
+}
+#shili3{
+    border-radius: 100% 0 0 100%  / 50% ;
+}
+#shili4{
+    border-radius: 100% 0 0 0;
+}
