@@ -32,3 +32,9 @@ const utils = {
         }
     }
 }
+
+
+// 实验
+function request(config) {
+    
+}
