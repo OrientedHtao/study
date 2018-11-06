@@ -36,7 +36,6 @@ function randomNumInCount ( obj ){
        arr.push( Math.round(Math.random()*(endPoint-startPoint))+startPoint )
     }
     return arr
-
 }
 var obj = {
     num: 9,
