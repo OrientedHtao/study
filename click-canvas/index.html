@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #demo{
+            border: 1px solid #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="demo" width="800" height="800"></canvas>
+    <div id ="qing">清除</div>
+    <script type="text/javascript" src='demo.js'></script>
+    <script>
+        var v1 = new ClickEffect({
+            ele:document.getElementById('demo'),
+            type: 'ball',
+            colors: ["#eb125f", "#6eff8a", "#6386ff", "#f9f383"],
+            maxNum: 50, // 一次点击出现的球球个数
+            radius: 12, // 球球的最大半径
+            reduceRa: 0.5, // (0,5]
+            animationTime: 50, // 动画时间间隔ms
+            speedX: 10,
+            speedY: 10,
+            addSX: 0.2, // (0,3]
+            addSY: 0.2, // (0,3]
+        })
+        v1.alter()
+        var btn = document.getElementById('qing')
+        btn.onclick = function () {
+            v1.clear()
+        }
+    </script>
+</body>
+</html>

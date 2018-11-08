@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #demo{
+            border: 1px solid #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="demo" width="800" height="800"></canvas>
+    <script>
+        window.onload = function () {
+        var dom = document.getElementById('demo')
+        var ctx = dom.getContext('2d')
+        ctx.fillStyle = '#f13232';
+        ctx.beginPath()
+        ctx.arc(400 , 320 , 50,0,2 * Math.PI);
+        ctx.closePath();
+        ctx.fill();
+        setInterval(function(){
+            run(ctx);
+        }, 50);
+        }
+        var speed=0;
+        var startPoint=400;
+        var startPointY = 320;
+        function run (cxt) {
+            speedx=-7;
+            speedy = 8;
+            cxt.clearRect(0,0,1024,728);
+            //cxt.top+=speed;    
+            startPoint+=speedx;
+            startPointY += speedy
+            cxt.beginPath();
+            cxt.arc(startPoint , startPointY ,50,0,2*Math.PI,true);
+            cxt.closePath();
+            cxt.fill();
+        }
+    </script>
+</body>
+</html>
