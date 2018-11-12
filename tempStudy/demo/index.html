@@ -1,34 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <div id="app">
-        <ul @click="onPagerClick" class="el-pager">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-        </ul>
-    </div>
-    <script src="js/vue.js"></script>
-    <script>
-        var vm = new Vue({
-            el:"#app",
-            data: function {
-                return {
+  <div id="app">
+    <ul @click="onPagerClick" class="el-pager">
+      <li
+      :class="{active: currentPage === 1}"
+      v-if="pageCount >0"
+      class="number">1</li>
+      <li class="el-icon more btn-quickprev"
+      :class="[quickprevIconClass]"
+      v-if="showPrevMore"
+      @mouseenter="onMouseenter('left')"
+      @mouseleave="quickprevIconClass = 'el-icon-more'">2</li>
+      <li
+      v-for="pager in pagers"
+      :key="pager"
+      :class="{active: currentPage===pager}"
+      class="number">{{pager}}</li>
+      <li class="el-icon more btn-quicknext"
+      :class="[quicknextIconClass]"
+      v-if="showNextMore"
+      @mouseenter="onMouseenter('right')"
+      @mouseleave="quicknextIconClass = 'el-icon-more'">
+      </li>
+      <li
+      :class="{ active: currentPage === pageCount }"
+      class="number"
+      v-if="pageCount > 1">{{ pageCount }}</li>
+    </ul>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    var vm = new Vue({
+      el:"#app",
+      name: 'pager',
+      // props:{
+      //   currentPage: Number,
+      //   pageCount: Number,
+      //   pagerCount: Number,
+      //   // disabled: Boolean
+      // },
+      data() {
+        return {
+          pageCount: 120,
+          pagerCount: 12,
+          currentPage: 1,
+          current: null,
+          showPrevMore: false,
+          showNextMore: false,
+          quicknextIconClass: 'el-icon-more',
+          quickprevIconClass: 'el-icon-more'
+        }
+      },
+      watch: {
+        showPrevMore(val) {
+          if (!val) this.quickprevIconClass = 'el-icon-more';
+        },
+        showNextMore(val) {
+          if (!val) this.quicknextIconClass = 'el-icon-more';
+        }
+      },
+      computed: {
+        pagers () {
+          var pagerCount = this.pagerCount;
+          var halfPagerCount = (pagerCount - 1) / 2;
+          var currentPage = Number(this.currentPage);
+          var pageCount = Number(this.pageCount);
 
-                }
-            },
-            methods: {
-                onPagerClick(event) {
+          var showPrevMore = false;
+          var showNextMore = false;
 
-                }
+          if (pageCount > pagerCount) {
+            if (currentPage > pagerCount - halfPagerCount) {
+              showPrevMore = true;
             }
-        });
-    </script>
+            if (currentPage < pageCount - halfPagerCount) {
+              showNextMore = true;
+            }
+          }
+          var array = [];
+
+          if (showPrevMore && !showNextMore) {
+            var startPage = pageCount - (pagerCount - 2);
+            for (let i = startPage; i < pageCount; i++) {
+              array.push(i);
+            }
+          } else if (!showPrevMore && showNextMore) {
+            for (let i = 2; i < pagerCount; i++) {
+              array.push(i);
+            }
+          } else if (showPrevMore && showNextMore) {
+            var offset = Math.floor(pagerCount / 2) - 1;
+            for (let i = currentPage - offset ; i <= currentPage + offset; i++) {
+              array.push(i);
+            }
+          } else {
+            for (let i = 2; i < pageCount; i++) {
+              array.push(i);
+            }
+          }
+          this.showPrevMore = showPrevMore;
+          this.showNextMore = showNextMore;
+          return array;
+        }
+      },
+      methods: {
+        onPagerClick(event) {
+          var target = event.target;
+          if ( target.tagName.toLowerCase() === 'ul' ) {
+            return;
+          }
+          var newPage = Number(target.textContent)
+          console.log(event)
+          var pageCount = this.pageCount;
+          var currentPage = this.currentPage;
+          // ?
+          var pagerCountOffset = this.pagerCount - 2;
+          if (target.className.indexOf('more') !== -1){
+            if (target.className.indexOf('quickprev') !== -1) {
+              newPage = currentPage - pagerCountOffset;
+            } else if (target.className.indexOf('quicknext') !== -1) {
+              newPage = currentPage + pagerCountOffset;
+            }
+          }
+          // newPage
+          if (!isNaN(newPage)) {
+            if (newPage < 1) {
+              newPage = 1;
+            }
+            if (newPage > pageCount) {
+              newPage = pageCount;
+            }
+          }
+          if (newPage !== currentPage) {
+            this.$emit('change', newPage);
+          }
+        },
+        onMouseenter(direction) {
+        if (this.disabled) return;
+        if (direction === 'left') {
+          this.quickprevIconClass = 'el-icon-d-arrow-left';
+        } else {
+          this.quicknextIconClass = 'el-icon-d-arrow-right';
+        }
+      }
+      }
+    });
+  </script>
 </body>
 </html>
