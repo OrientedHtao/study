@@ -2,8 +2,11 @@
 
 ###### 看到ColdDay github： https://github.com/ColdDay/click-colorful 
 
-**实现一个 canvas 点击效果**
-![click-colorful](./demo.gif 'clickEffect')
+**实现一个 canvas 点击 出现 小球 效果**
+![click-colorful](./ball.gif 'clickEffect')
+
+**实现一个 canvas 点击出现 星星 效果**
+![click-colorful](./star.gif 'clickEffect')
 
 
 > 使用方式：
