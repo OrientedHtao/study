@@ -7,29 +7,56 @@
 </head>
 <body>
   <div id="app">
-  <!-- 分页组件 -->
-  <!-- :total="total" -->
-  <kj-pagination
-  :page-count="pageCount"
-  :current-page="currentPage"
-  @current-change="handleChange"
-  @input-change="handleChange">
-  </kj-pagination>
+    <div class="pagination">
+      <ul @click="onPagerClick" class="pager el-pager">
+        <li class="previtem">上一页</li>
+        <li class="number"
+          :class="{ active: currentPage===1}">1</li>
+        <li class="prevmore"
+          v-if="showPrevMore">...</li>
+        <li class="number"
+          v-for="pager in middlePagers"
+          :key="pager"
+          :class="{active: currentPage=== pager}">{{pager}}</li>
+        <li class="nextmore"
+          v-if="showNextMore">...</li>
+        <li class="number"
+          :class="{ active: currentPage === pageCount}">{{pageCount}}</li>
+        <li class="nextitem">下一页</li>
+      </ul>
+      <div class="jump pagination-jump">
+        前进
+        <div class="jump-input input-editor">
+          <input class="input__inner" 
+          type="text" 
+          :value="currentValue"
+          @keyup.enter="handleChange"
+          >
+          <!-- @change="handleChange" -->
+        </div>
+        页
+      </div>
+    </div>
   </div>
   <script src="js/vue.js"></script>
   <script>
-    Vue.component('kj-pagination', {
-      props: ['pageCount','currentPage'],//,'total'
-      data () {
+    var vm = new Vue({
+      el:"#app",
+      name: 'pager',
+      data() {
         return {
-          value: 1,
+          total: 100,
+          pageCount: 120,
+          pagerCount: 7,
+          currentPage: 2,
+          current: null,
+          showPrevMore: false,
+          showNextMore: false,
+          quicknextIconClass: 'el-icon-more',
+          quickprevIconClass: 'el-icon-more',
           currentValue: this.currentPage === undefined || this.currentPage === null
           ? ''
           : this.currentPage,
-          pagerCount: 7,
-          // current: null,
-          showPrevMore: false,
-          showNextMore: false,
         }
       },
       watch: {
@@ -37,31 +64,6 @@
           this.currentValue = val;
         }
       },
-      template: '<div class="pagination">\
-        <ul @click="onPagerClick" class="pager el-pager">\
-        <li class="previtem">上一页</li>\
-        <li class="number"\
-          :class="{ active: currentPage===1}">1</li>\
-        <li class="prevmore"\
-          v-if="showPrevMore">...</li>\
-        <li class="number"\
-          v-for="pager in middlePagers"\
-          :key="pager"\
-          :class="{active: currentPage=== pager}">{{pager}}</li>\
-        <li class="nextmore"\
-          v-if="showNextMore">...</li>\
-        <li class="number"\
-          :class="{ active: currentPage === pageCount}">{{pageCount}}</li>\
-        <li class="nextitem">下一页</li>\
-        </ul>\
-        <div class="jump pagination-jump">\
-        前进\
-        <div class="jump-input input-editor">\
-          <input class="input__inner" type="text" :value="currentValue" @keyup.enter="handleChange">\
-        </div>\
-        页\
-          </div>\
-        </div>',
       computed: {
         middlePagers () {
           var pagerCount = this.pagerCount;
@@ -109,12 +111,10 @@
       methods: {
         handleChange(event) {
           var val = event.target.value
-          if(event.target.value <= 1) {
-            event.target.value = 1
-          } else  if (event.target.value >= this.pageCount){
-            event.target.value = this.pageCount
-          }
-          this.$emit('input-change',  Number(val));
+          console.log('event.target.value', event.target.value)
+          this.currentValue = val;
+          this.currentPage = Number(val);
+          // this.$emit('change', event.target.value);
         },
         onPagerClick(event) {
           var newPage;
@@ -128,7 +128,8 @@
               return;
             }
             newPage = this.currentPage - 1;
-            this.$emit('current-change', newPage)
+            // this.$emit('current-change', newPage)
+            this.currentPage = newPage
             console.log('prev')
           }
           // 下一页
@@ -137,47 +138,17 @@
               return;
             }
             newPage = this.currentPage + 1
-            this.$emit('current-change', newPage)
+            // this.$emit('current-change', newPage)
+            this.currentPage = newPage
             console.log('next')
           }
           // number类型的 页码
           if (target.className.indexOf('number') !== -1) {
             var newPage = Number(target.textContent)
-            this.$emit('current-change', newPage)
+            // this.$emit('current-change', newPage)
+            this.currentPage = newPage
           }
         },
-      }
-    });
-    var vm = new Vue({
-      el:"#app",
-      name: 'pager',
-      data() {
-        return {
-          total: 100,
-          pageCount: 120,
-          // pagerCount: 10,
-          currentPage: 2,
-          // current: null,
-          // showPrevMore: false,
-          // showNextMore: false,
-          quicknextIconClass: 'el-icon-more',
-          quickprevIconClass: 'el-icon-more'
-        }
-      },
-      methods: {
-        handleChange( data ){
-          console.log('第'+data+'页')
-          if(data <= 1) {
-            console.log(1)
-            this.currentPage = 1
-          } else if( data >= this.pageCount){
-            console.log(120)
-            this.currentPage = this.pageCount
-          } else {
-            console.log('===')
-            this.currentPage = data
-          }
-        }
       }
     });
   </script>

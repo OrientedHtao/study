@@ -1,0 +1,43 @@
+.el-pager{
+  user-select: none;
+  list-style: none;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 0;
+  padding: 0;
+  margin: 0;
+}
+.el-pager li.active {
+  color: #409eff;
+  cursor: default;
+}
+.el-pager li {
+  padding: 0 4px;
+  background: #fff;
+  vertical-align: top;
+  display: inline-block;
+  font-size: 13px;
+  min-width: 35.5px;
+  height: 28px;
+  line-height: 28px;
+  cursor: pointer;
+  box-sizing: border-box;
+  text-align: center;
+  margin: 0;
+  border: solid 1px #ededed;
+}
+.el-pager li:hover{
+  color: #409eff;
+}
+.el-pager li:first-child{
+}
+.el-pager li:not(:first-child){
+  margin-left:2px;
+}
+.el-pager li.btn-quicknext, .el-pager li.btn-quickprev {
+  line-height: 28px;
+  color: #303133;
+}
+.el-icon-more:before {
+    content: "\E646";
+}
