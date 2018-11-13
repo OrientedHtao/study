@@ -24,6 +24,15 @@
   box-sizing: border-box;
   text-align: center;
   margin: 0;
+  border: solid 1px #ededed;
+}
+.el-pager li:hover{
+  color: #409eff;
+}
+.el-pager li:first-child{
+}
+.el-pager li:not(:first-child){
+  margin-left:2px;
 }
 .el-pager li.btn-quicknext, .el-pager li.btn-quickprev {
   line-height: 28px;
