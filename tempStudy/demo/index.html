@@ -7,38 +7,13 @@
 </head>
 <body>
   <div id="app">
-    <!-- <div class="pagination">
-      <ul @click="onPagerClick" class="pager el-pager">
-        <li class="previtem">上一页</li>
-        <li class="number"
-          :class="{ active: currentPage===1}">1</li>
-        <li class="prevmore"
-          v-if="showPrevMore">...</li>
-        <li class="number"
-          v-for="pager in middlePagers"
-          :key="pager"
-          :class="{active: currentPage=== pager}">{{pager}}</li>
-        <li class="nextmore"
-          v-if="showNextMore">...</li>
-        <li class="number"
-          :class="{ active: currentPage === pageCount}">{{pageCount}}</li>
-        <li class="nextitem">下一页</li>
-      </ul>
-      <div class="jump pagination-jump">
-        前进
-        <span>
-          <input type="text" v-model="currentPage">
-        </span>
-        页
-      </div>
-    </div> -->
   <!-- 分页组件 -->
   <!-- :total="total" -->
   <kj-pagination
   :page-count="pageCount"
   :current-page="currentPage"
   @current-change="handleChange"
-  @input-change="handleInputChange">
+  @input-change="handleChange">
   </kj-pagination>
   </div>
   <script src="js/vue.js"></script>
@@ -190,8 +165,8 @@
         }
       },
       methods: {
-        handleInputChange ( data ) {
-          console.log('data', data)
+        handleChange( data ){
+          console.log('第'+data+'页')
           if(data <= 1) {
             console.log(1)
             this.currentPage = 1
@@ -202,11 +177,6 @@
             console.log('===')
             this.currentPage = data
           }
-          console.log('cur',this.currentPage )
-        },
-        handleChange( data ){
-          console.log('第'+data+'页')
-          this.currentPage = data
         }
       }
     });
