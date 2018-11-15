@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>犀牛书学习</title>
+  <style>
+    .ouput{
+      font-weight: bold;
+    }
+    #payment{
+      border: 1px solid black;
+    }
+    th, td {
+      vertical-align : top;
+    }
+  </style>
+</head>
+<body>
+  <!-- 一个html表格 -->
+  <table>
+    <tr>
+      <th>Enter Loan Data:</th>
+      <td></td>
+      <th>Loan Balance,Cumulative Equity, and Interest Payments</th>
+    </tr>
+    <tr>
+      <td>Amount of the loan($):</td>
+      <td><input type="text" id="amount" onchange="calculate()"></td>
+      <td rowspan="8">
+        <canvas id="graph" width=400 height=250></canvas>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+  <script src="js/demo1-1.js"></script>
+</body>
+</html>
