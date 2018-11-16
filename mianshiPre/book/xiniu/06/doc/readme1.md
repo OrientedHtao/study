@@ -40,6 +40,25 @@ Object.keys() = > return [keys => 可枚举的 自有属性名称 数组]
 Object.getOwnPropertyNames() => return 所有自有属性的 名称
 ```
 
+###### 属性的特性
+```
+一个数据属性 =  1一个名字 + 4个特性=|value  writable   enumerable  configurable
+
+一个 存取器属性 = 1个名字 + setter写入  getter读  enumerable  configurable
+ Object.getOwnPropertyDescriptor(obj, key) // 获取 对象 特定属性的  属性描述符 
+ // 只能获取到 自有属性的 属性描述符
+ Object.defineProperty(obj, key , {属性描述符}) // 操作 自有属性
+```
+
+##### 对象三属性 = 原型属性， 类属性，可扩展性
+
+###### 原型属性
+```
+原型属性 是原型对象，用来继承属性的。
+
+```
+
+
 
 ##### 难点： 对象属性的查询和设置机制
 
