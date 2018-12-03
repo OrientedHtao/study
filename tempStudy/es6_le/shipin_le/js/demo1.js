@@ -16,4 +16,21 @@ let arr3 = Array.from(arr);
 arr3.push('nihao')
 console.log(arr3); // ['huangtao', '18', 'fec', 'nihao']
 console.log(arr); // ['huangtao', '18', 'fec']
+// 伪数组
+let ali = document.querySelectorAll('li');
+console.log(ali);
+let aliArr = [...ali]
+console.log(aliArr)
+// 验证... 是不是深拷贝
+let ab = [1,2,3,4]
+let arrR = [1,2,3,4]
+arrR.push(ab)
+console.log(arrR)
+let arrR1 = [...arrR]
+// 不是深拷贝
+console.log(arrR1)
+ab.push('demo')
+console.log(arrR)
+console.log(arrR1)
+
 
