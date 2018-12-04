@@ -5,6 +5,43 @@
   <title>简单工厂模式</title>
 </head>
 <body>
+  <div id="wra">
+    <button id="shuruerror">输入内容有误</button>
+    <button id="passworderror">密码错误</button>
+    <button id="usernameerror">用户名错误</button>
+    <button id="logins">登录成功</button>
+  </div>
+
   <script src="js/demo3-1.js"></script>
+  <script>
+    var btn = document.getElementById('wra');
+    // var shurubtn = document.getElementById('shuruerror')
+    // var passwordbtn = document.getElementById('passworderror')
+    // var usernamebtn = document.getElementById('usernameerror')
+    // var loginbtn = document.getElementById('logins')
+    btn.onclick = function (event) {
+      switch (event.target.id) {
+        case 'logins':
+          var loginS= new LoginPrompt('登录成功，欢迎回来');
+          loginS.show();
+          break;
+        case 'usernameerror': 
+          var loginFailConfirm = new loginConfirm('您的用户名不存在，请重新输入');
+          loginFailConfirm.show();
+          break;
+        case 'passworderror':
+          var passwordAlert = new LoginAlert('输入的密码不正确');
+          passwordAlert.show();
+          break;
+        case 'shuruerror':
+          var userNameAlert = new LoginAlert('用户名不能多于16个字母或数字');
+          userNameAlert.show();
+          break;
+        default: 
+          console.log(event.target)
+      }
+    }
+
+  </script>
 </body>
 </html>
